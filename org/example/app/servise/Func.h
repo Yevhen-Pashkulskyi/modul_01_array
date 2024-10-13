@@ -15,8 +15,4 @@ int *sortArrZA(int arr[], int len);
 
 int *doubleArr(int arr_az[], int arr_za[], int len);
 
-// int search_min_arr(int *arr, int len);
-//
-// int search_max_arr(int *arr, int len);
-
 #endif
