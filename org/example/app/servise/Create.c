@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include "Func.h"
 
+int randNum(int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
+
 int *createArr(int len, int min, int max) {
     int *arr = malloc(sizeof(int) * len);
     if (arr == NULL) {
@@ -8,71 +12,6 @@ int *createArr(int len, int min, int max) {
     }
     for (int i = 0; i < len; i++) {
         arr[i] = randNum(min, max);
-    }
-    return arr;
-}
-
-int randNum(int min, int max) {
-    return rand() % (max - min) + min;
-}
-
-int *sortArrUp(int arr[], int len) {
-    int *sorted_arr = malloc(sizeof(int) * len);
-    if (sorted_arr == NULL) {
-        return NULL;
-    }
-    int temp;
-    for (int i = 0; i < len; i++) {
-        sorted_arr[i] = arr[i];
-    }
-    for (int i = 0; i < len; i++) {
-        for (int j = 0; j < len - 1; j++) {
-            if (sorted_arr[j] > sorted_arr[j + 1]) {
-                temp = sorted_arr[j];
-                sorted_arr[j] = sorted_arr[j + 1];
-                sorted_arr[j + 1] = temp;
-            }
-        }
-    }
-    return sorted_arr;
-}
-
-int *sortArrDown(int *arr, int len) {
-    int *sorted_arr = malloc(sizeof(int) * len);
-    if (sorted_arr == NULL) {
-        return NULL;
-    }
-    int temp;
-    for (int i = 0; i < len; i++) {
-        sorted_arr[i] = arr[i];
-    }
-    for (int i = 0; i < len; i++) {
-        for (int j = 0; j < len - 1; j++) {
-            if (sorted_arr[j] < sorted_arr[j + 1]) {
-                temp = sorted_arr[j];
-                sorted_arr[j] = sorted_arr[j + 1];
-                sorted_arr[j + 1] = temp;
-            }
-        }
-    }
-    return sorted_arr;
-}
-
-int *doubleArr(int sort_up[], int sort_down[], int len) {
-    int *arr = malloc(sizeof(int) * len);
-    if (arr == NULL) {
-        return NULL;
-    }
-    int index = 0;
-    int counter = 0;
-    for (int i = 0; i < len; i++) {
-        if (index < len / 2) {
-            arr[i] = sort_up[index];
-            index++;
-        } else {
-            arr[i] = sort_down[counter];
-            counter++;
-        }
     }
     return arr;
 }
