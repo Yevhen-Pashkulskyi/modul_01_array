@@ -3,6 +3,9 @@
 
 int *createArr(int len, int min, int max) {
     int *arr = malloc(sizeof(int) * len);
+    if (arr == NULL) {
+        return NULL;
+    }
     for (int i = 0; i < len; i++) {
         arr[i] = randNum(min, max);
     }
@@ -13,8 +16,11 @@ int randNum(int min, int max) {
     return rand() % (max - min) + min;
 }
 
-int *sortArrAZ(int arr[], int len) {
+int *sortArrUp(int arr[], int len) {
     int *sorted_arr = malloc(sizeof(int) * len);
+    if (sorted_arr == NULL) {
+        return NULL;
+    }
     int temp;
     for (int i = 0; i < len; i++) {
         sorted_arr[i] = arr[i];
@@ -31,8 +37,11 @@ int *sortArrAZ(int arr[], int len) {
     return sorted_arr;
 }
 
-int *sortArrZA(int *arr, int len) {
+int *sortArrDown(int *arr, int len) {
     int *sorted_arr = malloc(sizeof(int) * len);
+    if (sorted_arr == NULL) {
+        return NULL;
+    }
     int temp;
     for (int i = 0; i < len; i++) {
         sorted_arr[i] = arr[i];
@@ -49,18 +58,44 @@ int *sortArrZA(int *arr, int len) {
     return sorted_arr;
 }
 
-int *doubleArr(int arr_az[], int arr_za[], int len) {
+int *doubleArr(int sort_up[], int sort_down[], int len) {
     int *arr = malloc(sizeof(int) * len);
+    if (arr == NULL) {
+        return NULL;
+    }
     int index = 0;
     int counter = 0;
     for (int i = 0; i < len; i++) {
         if (index < len / 2) {
-            arr[i] = arr_az[index];
+            arr[i] = sort_up[index];
             index++;
         } else {
-            arr[i] = arr_za[counter];
+            arr[i] = sort_down[counter];
             counter++;
         }
     }
     return arr;
+}
+
+int *createMinMaxArr(int arr[], int len, int new_len) {
+    int *arr_min_max_arr = malloc(sizeof(int) * new_len);
+    if (arr_min_max_arr == NULL) {
+        return NULL;
+    }
+    for (int i = 0; i < new_len; i++) {
+        if (new_len % 2 == 0) {
+            if (i == new_len / 2 - 1 | i == new_len / 2) {
+                arr_min_max_arr[i] = searchMax(arr, len);
+            } else {
+                arr_min_max_arr[i] = searchMin(arr, len);
+            }
+        } else {
+            if (i == new_len / 2) {
+                arr_min_max_arr[i] = searchMax(arr, len);
+            } else {
+                arr_min_max_arr[i] = searchMin(arr, len);
+            }
+        }
+    }
+    return arr_min_max_arr;
 }
